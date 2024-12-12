@@ -4,17 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\BusinessInsight;
 use Illuminate\Http\Request;
-use Mistral\Mistral;
+
 
 class BusinessInsightController extends Controller
 {
-    protected $mistral;
-
-    public function __construct()
-    {
-        $this->mistral = new Mistral(['api_key' => env('AI_API_KEY')]);
-    }
-
     public function generate(Request $request)
     {
         $user = auth()->user();
@@ -30,33 +23,33 @@ class BusinessInsightController extends Controller
             ], 403);
         }
 
-        $message = "Kamu berperan sebagai seorang ahli bisnis berpengalaman di bidang {$request->bidangBisnis}. " .
-                  "Tugas Anda adalah membantu saya mengidentifikasi ide bisnis inovatif dan berpotensi menguntungkan " .
-                  "di Indonesia, yang sesuai dengan target pasar {$request->targetPasar}. Berikan ide bisnis yang " .
-                  "inovatif dan berpotensi menguntungkan, berikan point-point dari Langkah-Langkah, dokumen yang " .
-                  "dipersiapkan di Indonesia.";
-
         try {
-            $response = $this->mistral->chat->complete([
-                'model' => 'pixtral-12b-2409',
-                'messages' => [
-                    ['role' => 'admin', 'content' => $message]
-                ]
-            ]);
-
             if ($user->role === 'user') {
                 $user->increment('daily_generations');
             }
 
+            $validated = $request->validate([
+                'user_id' => ['required'],
+                'business_field' => 'required|string|max:255',
+                'target_market' => 'required|string|max:255',
+                'insight' => 'required|string',
+            ]);
+
+            if ($user->id != $validated['user_id']) {
+                return response()->json([
+                    'error' => 'User not same'
+                ], 401);
+            }
+
             $insight = BusinessInsight::create([
-                'user_id' => $user->id,
-                'business_field' => $request->bidangBisnis,
-                'target_market' => $request->targetPasar,
-                'insight' => $response->choices[0]->message->content
+                'user_id' => $user->id,  // Use the authenticated user's ID
+                'business_field' => $validated['business_field'],
+                'target_market' => $validated['target_market'],
+                'insight' => $validated['insight'],
             ]);
 
             return response()->json([
-                'insight' => $response->choices[0]->message->content
+                'insight' => $insight
             ]);
         } catch (\Exception $e) {
             return response()->json([

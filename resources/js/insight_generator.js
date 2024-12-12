@@ -1,10 +1,13 @@
+import { generateInsight } from './mistralClient.js';
+import axios from 'axios';
+
 const form = document.getElementById('generateForm');
 const result = document.getElementById('result');
 const insightContent = document.getElementById('insightContent');
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    console.log(window.auth)
+
     if (!window.auth) {
         Swal.fire({
             title: 'Login Required',
@@ -26,37 +29,27 @@ form.addEventListener('submit', async (e) => {
             }
         });
         return;
-    } else {
-        try {
-            const response = await axios.post('/api/generate-insight', {
-                bidangBisnis: document.getElementById('bidangBisnis').value,
-                targetPasar: document.getElementById('targetPasar').value
-            });
+    }
 
-            if (response.data.error) {
-                Swal.fire({
-                    title: 'Generation Limit Reached',
-                    text: 'You have reached your daily generation limit. Upgrade to Pro Plan for unlimited generations!',
-                    icon: 'warning',
-                    confirmButtonColor: '#2f27ce',
-                    showClass: {
-                        popup: 'animate__animated animate__fadeInDown'
-                    },
-                    hideClass: {
-                        popup: 'animate__animated animate__fadeOutUp'
-                    }
-                });
-                return;
-            }
+    try {
+        businessField = document.getElementById('bidangBisnis').value
+        targetMarket = document.getElementById('targetPasar').value
+        const insight = await generateInsight(businessField, targetMarket);
 
-            insightContent.innerHTML = response.data.insight;
-            result.classList.remove('hidden');
-            result.scrollIntoView({ behavior: 'smooth' });
-        } catch (error) {
+        const response = await axios.post('/api/generate-insight', {
+            user_id: window.auth.id,
+            business_field: businessField,
+            target_market: targetMarket,
+            insight: insight
+        });
+
+        const responseData = await response.json();
+
+        if (response.data.error) {
             Swal.fire({
-                title: 'Error',
-                text: 'An error occurred while generating the insight',
-                icon: 'error',
+                title: 'Generation Limit Reached',
+                text: 'You have reached your daily generation limit. Upgrade to Pro Plan for unlimited generations!',
+                icon: 'warning',
                 confirmButtonColor: '#2f27ce',
                 showClass: {
                     popup: 'animate__animated animate__fadeInDown'
@@ -65,8 +58,27 @@ form.addEventListener('submit', async (e) => {
                     popup: 'animate__animated animate__fadeOutUp'
                 }
             });
+            return;
         }
+
+        insightContent.innerHTML = responseData.insight;
+        result.classList.remove('hidden');
+        result.scrollIntoView({ behavior: 'smooth' });
+    } catch (error) {
+        Swal.fire({
+            title: 'Error',
+            text: 'An error occurred while generating the insight',
+            icon: 'error',
+            confirmButtonColor: '#2f27ce',
+            showClass: {
+                popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutUp'
+            }
+        });
     }
+
 });
 
 function copyToClipboard() {

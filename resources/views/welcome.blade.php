@@ -68,7 +68,7 @@
                         <li class="mb-2">✓ Priority support</li>
                         <li class="mb-2">✓ Export and print options</li>
                     </ul>
-                    <p class="text-3xl font-bold mb-6">$29/month</p>
+                    <p class="text-3xl font-bold mb-6"><s>$49</s><br>$29/month</p>
                     <a href="{{ route('register') }}"
                         class="block text-center bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-secondary">Upgrade
                         Now</a>
