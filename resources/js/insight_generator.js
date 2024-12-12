@@ -1,4 +1,4 @@
-import { generateInsight } from './mistralClient.js';
+import { generateInsight } from '../../public/ts/mistralClient.js';
 import axios from 'axios';
 
 const form = document.getElementById('generateForm');
