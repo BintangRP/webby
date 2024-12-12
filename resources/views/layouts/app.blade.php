@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Business Buddy</title>
+    <link rel="icon" href="{{ asset('favicon.ico') }}">
     @vite(['./resources/css/app.css', './resources/js/app.js'])
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 </head>
 
 <body class="bg-white text-black">
@@ -15,19 +17,32 @@
             <div class="flex justify-between h-16">
                 <div class="flex">
                     <a href="/" class="flex items-center">
-                        <span class="text-primary font-bold text-xl">Business Buddy</span>
+                        {{-- <span class="text-primary font-bold text-xl">Business Buddy</span> --}}
+                        <img src="{{ asset('Logo.svg') }}" alt="">
                     </a>
                 </div>
                 <div class="flex items-center">
                     @auth
-                        <a href="{{ route('dashboard') }}" class="text-primary hover:text-secondary px-3 py-2">Dashboard</a>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" class="text-primary hover:text-secondary px-3 py-2">Logout</button>
-                        </form>
+                        <div class="flex">
+                            <a href="{{ route('generate') }}"
+                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create
+                                WEBBY</a>
+                            <a href="{{ route('dashboard') }}"
+                                class="text-primary hover:text-secondary px-3 py-2">Dashboard</a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="text-primary hover:text-secondary px-3 py-2">Logout</button>
+                            </form>
+                        </div>
                     @else
-                        <a href="{{ route('login') }}" class="text-primary hover:text-secondary px-3 py-2">Login</a>
-                        <a href="{{ route('register') }}" class="text-primary hover:text-secondary px-3 py-2">Register</a>
+                        <div>
+                            <a href="{{ route('generate') }}"
+                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create
+                                WEBBY</a>
+                            <a href="{{ route('login') }}" class="text-primary hover:text-secondary px-3 py-2">Login</a>
+                            <a href="{{ route('register') }}"
+                                class="text-primary hover:text-secondary px-3 py-2">Register</a>
+                        </div>
                     @endauth
                 </div>
             </div>
@@ -57,15 +72,13 @@
                     <h3 class="text-xl font-bold mb-4">Contact</h3>
                     <ul>
                         <li>Email: support@businessbuddy.com</li>
-                        <li>Phone: (123) 456-7890</li>
+                        <li>Phone: (+62) 838-7762-6559</li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="text-xl font-bold mb-4">Follow Us</h3>
                     <div class="flex space-x-4">
-                        <a href="#" class="hover:text-secondary">Twitter</a>
-                        <a href="#" class="hover:text-secondary">LinkedIn</a>
-                        <a href="#" class="hover:text-secondary">Facebook</a>
+                        <a href="https://www.instagram.com/heheteam.corp/" class="hover:text-secondary">Instagram</a>
                     </div>
                 </div>
             </div>
@@ -74,6 +87,10 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        window.auth = @json(auth()->user());
+    </script>
 </body>
 
 </html>

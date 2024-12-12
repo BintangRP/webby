@@ -7,7 +7,7 @@
             <div class="bg-white p-6 rounded-lg shadow">
                 <div class="mb-8">
                     <h3 class="text-lg font-semibold mb-4">Current Plan</h3>
-                    <p class="text-primary">{{ auth()->user()->role === 'buddy' ? 'Pro Plan' : 'Experiment Plan' }}</p>
+                    <p class="text-primary">{{ auth()->user()->role === 'buddy' ? 'Pro Plan' : 'Experiment Plan (F2P)' }}</p>
                 </div>
 
                 <div class="mb-8">
@@ -37,12 +37,20 @@
                 <div id="activity" class="bg-white p-6 rounded-lg shadow mb-8">
                     <h2 class="text-2xl font-bold mb-6">Activity Logs</h2>
                     <div class="space-y-4">
-                        @foreach (auth()->user()->insights()->latest()->take(5)->get() as $insight)
-                            <div class="border-b pb-4">
-                                <p class="font-semibold">{{ $insight->business_field }} - {{ $insight->target_market }}</p>
-                                <p class="text-sm text-gray-600">{{ $insight->created_at->diffForHumans() }}</p>
-                            </div>
-                        @endforeach
+                        @php
+                            $insights = auth()->user()->insights()->latest()->take(5)->get();
+                        @endphp
+                        @if ($insights->isEmpty())
+                            <p class="text-primary text-sm">There is no activity</p>
+                        @else
+                            @foreach ($insights as $insight)
+                                <div class="border-b pb-4">
+                                    <p class="font-semibold">{{ $insight->business_field }} - {{ $insight->target_market }}
+                                    </p>
+                                    <p class="text-sm text-gray-600">{{ $insight->created_at->diffForHumans() }}</p>
+                                </div>
+                            @endforeach
+                        @endif
                     </div>
                 </div>
 

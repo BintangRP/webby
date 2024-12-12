@@ -12,7 +12,7 @@ class BusinessInsightController extends Controller
 
     public function __construct()
     {
-        $this->mistral = new Mistral(['api_key' => env('MISTRAL_API_KEY')]);
+        $this->mistral = new Mistral(['api_key' => env('AI_API_KEY')]);
     }
 
     public function generate(Request $request)

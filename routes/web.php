@@ -4,10 +4,15 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BusinessInsightController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/generate', function () {
+    return view('generate');
+})->name('generate');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
@@ -16,10 +21,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
-
-    Route::get('/generate', function () {
-        return view('generate');
-    })->name('generate');
 
     Route::post('/api/generate-insight', [BusinessInsightController::class, 'generate']);
     Route::post('/api/save-insight', [BusinessInsightController::class, 'save']);
@@ -34,8 +35,4 @@ Route::middleware('guest')->group(function () {
     Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
 
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
-});
-
-Route::middleware('auth')->group(function () {
-
 });

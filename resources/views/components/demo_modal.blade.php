@@ -26,7 +26,7 @@
 
                 <!-- Video Container -->
                 <div class="aspect-w-16 aspect-h-9">
-                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/J8YqRe2uTQY" frameborder="0"
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/rPblj7ywfvg" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen>
                     </iframe>

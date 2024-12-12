@@ -1,0 +1,38 @@
+@import "animate.css";
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    #insightContent,
+    #insightContent * {
+        visibility: visible;
+    }
+    #insightContent {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+}
+
+.prose {
+    max-width: 65ch;
+    color: #374151;
+}
+
+.prose p {
+    margin-top: 1.25em;
+    margin-bottom: 1.25em;
+}
+
+.prose ul {
+    margin-top: 1.25em;
+    margin-bottom: 1.25em;
+    padding-left: 1.625em;
+    list-style-type: disc;
+}
+
+.prose li {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}

@@ -12,12 +12,14 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
 
+        $data = [];
+
         if ($request->email !== $user->email) {
-            $user->email = $request->email;
+            $data['email'] = $request->email;
         }
 
         if ($request->name !== $user->name) {
-            $user->name = $request->name;
+            $data['name'] = $request->name;
         }
 
         if ($request->filled('current_password')) {
@@ -25,10 +27,12 @@ class ProfileController extends Controller
                 return back()->withErrors(['current_password' => 'The provided password does not match your current password.']);
             }
 
-            $user->password = Hash::make($request->password);
+            $data['password'] = Hash::make($request->password);
         }
 
-        $user->save();
+        if (!empty($data)) {
+            $user->update($data);
+        }
 
         return back()->with('status', 'profile-updated');
     }
