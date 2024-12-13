@@ -6,7 +6,6 @@
         "build": "vite build"
     },
     "dependencies": {
-        "@headlessui/react": "^1.7.17",
         "@mistralai/mistralai": "^0.0.7",
         "@tailwindcss/aspect-ratio": "^0.4.2",
         "@tailwindcss/forms": "^0.5.7",

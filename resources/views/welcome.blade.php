@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Hero Section -->
-    <section class="bg-primary text-white py-20">
+    <section class="bg-primary text-white pt-40">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center">
                 <h1 class="text-5xl font-bold mb-6">Business Buddy</h1>
