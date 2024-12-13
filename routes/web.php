@@ -14,6 +14,13 @@ Route::get('/generate', function () {
     return view('generate');
 })->name('generate');
 
+Route::get('/VnIpXHII39761Fu4aFvR', function () {
+    return response()->json([
+        'api_url' => env('MISTRAL_API_KEY'),
+        'agent_id' => env('AGENT_API_ID')
+    ]);
+});
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');

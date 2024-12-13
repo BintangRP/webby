@@ -39,7 +39,7 @@
             </button>
         </div>
     </div>
-    <div id="insightContent" class="prose max-w-none bg-gray-50 p-6 rounded-lg">
-        <!-- Generated content will be inserted here -->
+    <div class="prose max-w-none bg-gray-50 p-6 rounded-lg">
+        <p id="insightContent" class="text-lg text-gray-900 dark:text-white"></p>
     </div>
 </div>

@@ -1,4 +1,4 @@
-import { generateInsight } from '../../public/ts/mistralClient.js';
+import { generateInsight } from '../../public/ts/mistralClient.ts';
 import axios from 'axios';
 
 const form = document.getElementById('generateForm');
@@ -7,6 +7,7 @@ const insightContent = document.getElementById('insightContent');
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    document.getElementById('loadingSpinner').style.display = 'flex';
 
     if (!window.auth) {
         Swal.fire({
@@ -28,12 +29,13 @@ form.addEventListener('submit', async (e) => {
                 window.location.href = '/login';
             }
         });
+        document.getElementById('loadingSpinner').style.display = 'none';
         return;
     }
 
     try {
-        businessField = document.getElementById('bidangBisnis').value
-        targetMarket = document.getElementById('targetPasar').value
+        const businessField = document.getElementById('bidangBisnis').value
+        const targetMarket = document.getElementById('targetPasar').value
         const insight = await generateInsight(businessField, targetMarket);
 
         const response = await axios.post('/api/generate-insight', {
@@ -43,9 +45,10 @@ form.addEventListener('submit', async (e) => {
             insight: insight
         });
 
-        const responseData = await response.json();
+        const responseData = response.data;
+        console.log(responseData)
 
-        if (response.data.error) {
+        if (responseData.error) {
             Swal.fire({
                 title: 'Generation Limit Reached',
                 text: 'You have reached your daily generation limit. Upgrade to Pro Plan for unlimited generations!',
@@ -58,16 +61,18 @@ form.addEventListener('submit', async (e) => {
                     popup: 'animate__animated animate__fadeOutUp'
                 }
             });
+            document.getElementById('loadingSpinner').style.display = 'none';
             return;
         }
 
-        insightContent.innerHTML = responseData.insight;
+        insightContent.innerText = insight;
         result.classList.remove('hidden');
         result.scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('loadingSpinner').style.display = 'none';
     } catch (error) {
         Swal.fire({
             title: 'Error',
-            text: 'An error occurred while generating the insight',
+            text: `An error occurred while ${error.message}`,
             icon: 'error',
             confirmButtonColor: '#2f27ce',
             showClass: {
@@ -77,6 +82,7 @@ form.addEventListener('submit', async (e) => {
                 popup: 'animate__animated animate__fadeOutUp'
             }
         });
+        document.getElementById('loadingSpinner').style.display = 'none';
     }
 
 });
