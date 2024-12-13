@@ -9,7 +9,7 @@
                 <p class="text-xl mb-8">Your AI-powered business consultant available 24/7</p>
                 <div class="flex justify-center space-x-4">
                     <x-demo_modal />
-                    <a href="{{ route('register') }}"
+                    <a href="{{ route('generate') }}"
                         class="border-2 border-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-primary">Get
                         Started</a>
                 </div>
@@ -60,7 +60,13 @@
                         Started</a>
                 </div>
                 <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-primary">
-                    <h3 class="text-2xl font-bold mb-4">Pro Plan</h3>
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-2xl font-bold mb-4">Pro Plan</h3>
+                        <span
+                            class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">90%
+                            saved</span>
+                    </div>
+
                     <p class="text-gray-600 mb-6">For serious business planning</p>
                     <ul class="mb-8">
                         <li class="mb-2">✓ Unlimited generations</li>
@@ -68,7 +74,7 @@
                         <li class="mb-2">✓ Priority support</li>
                         <li class="mb-2">✓ Export and print options</li>
                     </ul>
-                    <p class="text-3xl font-bold mb-6"><s>$49</s><br>$29/month</p>
+                    <p class="text-3xl font-bold mb-6">$5 <s class="text-gray-400">$49</s>/month</p>
                     <a href="{{ route('register') }}"
                         class="block text-center bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-secondary">Upgrade
                         Now</a>

@@ -64,9 +64,9 @@
                 <div>
                     <h3 class="text-xl font-bold mb-4">Quick Links</h3>
                     <ul>
-                        <li><a href="#features" class="hover:text-secondary">Features</a></li>
-                        <li><a href="#pricing" class="hover:text-secondary">Pricing</a></li>
-                        <li><a href="#faq" class="hover:text-secondary">FAQ</a></li>
+                        <li><a href="/#features" class="hover:text-secondary">Features</a></li>
+                        <li><a href="/#pricing" class="hover:text-secondary">Pricing</a></li>
+                        <li><a href="/#faq" class="hover:text-secondary">FAQ</a></li>
                     </ul>
                 </div>
                 <div>
