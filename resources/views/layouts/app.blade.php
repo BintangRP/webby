@@ -15,7 +15,7 @@
 
 <body class="bg-white text-black">
     <nav
-        class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
+        class="z-50 bg-white dark:bg-gray-900 fixed w-full top-0 start-0 border-b border-gray-200 dark:border-gray-600">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
                 <img src="{{ asset('Logo.svg') }}" alt="Business Buddy Logo" class="h-8">
@@ -75,8 +75,8 @@
         @yield('content')
     </main>
 
-    <footer class="bg-primary text-white">
-        <div class="max-w-7xl mx-auto px-4 py-12">
+    <footer class="bg-primary text-white z-50">
+        <div class="max-w-7xl mx-auto px-4 py-12 z-50">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
                     <h3 class="text-xl font-bold mb-4">Business Buddy</h3>
