@@ -26,7 +26,7 @@ export const generateInsight = async (businessField, targetMarket) => {
         const template = `Kamu berperan sebagai seorang ahli bisnis berpengalaman yang mempunyai banyak assets yang baik dan selalu dapat melihat peluang yang ada pada pasar. Kamu berperan sebagai seorang ahli bisnis berpengalaman di bidang ${businessField}. Tugas Anda adalah membantu saya mengidentifikasi ide bisnis inovatif dan berpotensi menguntungkan di Indonesia, yang sesuai dengan target pasar ${targetMarket}. Berikan ide bisnis yang inovatif dan berpotensi menguntungkan, berikan point-point dari Langkah-Langkah, dokumen yang dipersiapkan di Indonesia.`;
 
         const chatResponse = await client.post("/chat/completions", {
-            model: "open-mixtral-8x7b",
+            model: "mistral-small-2409",
             messages: [
                 {
                     role: "user",

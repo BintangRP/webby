@@ -1,5 +1,6 @@
 import { generateInsight } from '../../public/ts/mistralClient.ts';
 import axios from 'axios';
+import { marked } from 'marked';
 
 const form = document.getElementById('generateForm');
 const result = document.getElementById('result');
@@ -62,7 +63,10 @@ form.addEventListener('submit', async (e) => {
             insight: insight
         });
 
-        insightContent.innerText = insight;
+        const markdownContent = insight;
+        const htmlContent = marked(markdownContent);
+
+        insightContent.innerHTML = htmlContent;
         result.classList.remove('hidden');
         result.scrollIntoView({ behavior: 'smooth' });
         document.getElementById('loadingSpinner').style.display = 'none';
