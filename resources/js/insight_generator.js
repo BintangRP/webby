@@ -34,24 +34,10 @@ form.addEventListener('submit', async (e) => {
     }
 
     try {
-        const businessField = document.getElementById('bidangBisnis').value
-        const targetMarket = document.getElementById('targetPasar').value
-        const insight = await generateInsight(businessField, targetMarket);
-
-        const response = await axios.post('/api/generate-insight', {
-            user_id: window.auth.id,
-            business_field: businessField,
-            target_market: targetMarket,
-            insight: insight
-        });
-
-        const responseData = response.data;
-        console.log(responseData)
-
-        if (responseData.error) {
+        if (window.auth.daily_generations >= 5) {
             Swal.fire({
                 title: 'Generation Limit Reached',
-                text: 'You have reached your daily generation limit. Upgrade to Pro Plan for unlimited generations!',
+                text: 'You have reached your daily generation limit. Upgrade to Buddy Pro Plan for unlimited generations!',
                 icon: 'warning',
                 confirmButtonColor: '#2f27ce',
                 showClass: {
@@ -65,6 +51,17 @@ form.addEventListener('submit', async (e) => {
             return;
         }
 
+        const businessField = document.getElementById('bidangBisnis').value
+        const targetMarket = document.getElementById('targetPasar').value
+        const insight = await generateInsight(businessField, targetMarket);
+
+        const response = await axios.post('/api/generate-insight', {
+            user_id: window.auth.id,
+            business_field: businessField,
+            target_market: targetMarket,
+            insight: insight
+        });
+
         insightContent.innerText = insight;
         result.classList.remove('hidden');
         result.scrollIntoView({ behavior: 'smooth' });
@@ -72,7 +69,7 @@ form.addEventListener('submit', async (e) => {
     } catch (error) {
         Swal.fire({
             title: 'Error',
-            text: `An error occurred while ${error.message}`,
+            text: `An error occurred: ${error.response?.data?.message || error.message}`,
             icon: 'error',
             confirmButtonColor: '#2f27ce',
             showClass: {
@@ -86,83 +83,3 @@ form.addEventListener('submit', async (e) => {
     }
 
 });
-
-function copyToClipboard() {
-    navigator.clipboard.writeText(insightContent.innerText);
-    showToast('Copied to clipboard!');
-}
-
-function shareInsight() {
-    if (navigator.share) {
-        navigator.share({
-            title: 'Business Insight',
-            text: insightContent.innerText
-        }).catch(() => {
-            showToast('Unable to share');
-        });
-    } else {
-        showToast('Sharing not supported on this device');
-    }
-}
-
-function printInsight() {
-    window.print();
-}
-
-async function saveInsight() {
-    try {
-        await axios.post('/api/save-insight', {
-            business_field: document.getElementById('bidangBisnis').value,
-            target_market: document.getElementById('targetPasar').value,
-            content: insightContent.innerText
-        });
-        showToast('Insight saved successfully');
-    } catch (error) {
-        showToast('Failed to save insight', 'error');
-    }
-}
-
-function deleteInsight() {
-    Swal.fire({
-        title: 'Are you sure?',
-        text: 'This action cannot be undone',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Delete',
-        cancelButtonText: 'Cancel',
-        confirmButtonColor: '#2f27ce',
-        showClass: {
-            popup: 'animate__animated animate__fadeInDown'
-        },
-        hideClass: {
-            popup: 'animate__animated animate__fadeOutUp'
-        }
-    }).then((result) => {
-        if (result.isConfirmed) {
-            result.classList.add('hidden');
-            insightContent.innerHTML = '';
-            showToast('Insight deleted');
-        }
-    });
-}
-
-function showToast(message, type = 'success') {
-    const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        showClass: {
-            popup: 'animate__animated animate__fadeInRight'
-        },
-        hideClass: {
-            popup: 'animate__animated animate__fadeOutRight'
-        }
-    });
-
-    Toast.fire({
-        icon: type,
-        title: message
-    });
-}

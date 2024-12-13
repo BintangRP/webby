@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BusinessInsightController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SaveInsightsController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,9 +30,12 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
+    Route::get('/insights', [SaveInsightsController::class, 'index'])->name('insights.index');
+    Route::get('/insights/{insight}', [SaveInsightsController::class, 'show'])->name('insights.show');
+
     Route::post('/api/generate-insight', [BusinessInsightController::class, 'generate']);
-    Route::post('/api/save-insight', [BusinessInsightController::class, 'save']);
-    Route::delete('/api/delete-insight/{id}', [BusinessInsightController::class, 'delete']);
+    Route::post('/api/save-insight', [SaveInsightsController::class, 'save']);
+    Route::delete('/api/delete-insight/{id}', [SaveInsightsController::class, 'delete']);
 });
 
 Route::middleware('guest')->group(function () {

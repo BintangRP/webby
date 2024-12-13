@@ -13,13 +13,13 @@ class BusinessInsightController extends Controller
         $user = auth()->user();
         if (!$user) {
             return response()->json([
-                'error' => 'User not authenticated'
+                'message' => 'User not authenticated'
             ], 401);
         }
 
-        if (!$user->canGenerate()) {
+        if (!($user->canGenerate())) {
             return response()->json([
-                'error' => 'Daily limit reached'
+                'limit' => 'Daily limit reached'
             ], 403);
         }
 
