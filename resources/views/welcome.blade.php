@@ -15,6 +15,7 @@
                 </div>
             </div>
         </div>
+        <div class="max-w-fit mx-auto pt-5"><img src="{{ asset('demo.png') }}" alt="Demo Buddy"></div>
     </section>
 
     <!-- Features Section -->
