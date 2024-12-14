@@ -15,7 +15,7 @@
     </div>
 
     <button type="submit"
-        class="w-full bg-blue-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-secondary transition-colors duration-200">
+        class="w-full bg-blue-800 text-white px-6 py-3 rounded-lg font-semibold hover:bg-secondary transition-colors duration-200">
         Generate Insight
     </button>
 </form>

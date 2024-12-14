@@ -54,7 +54,7 @@
 
     <div class="flex items-center justify-end mt-4">
         <button type="submit"
-            class="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 text-sm">
+            class="bg-blue-800 text-white px-6 py-2 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 text-sm">
             Update Profile
         </button>
     </div>

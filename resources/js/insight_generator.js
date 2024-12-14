@@ -6,7 +6,7 @@ const form = document.getElementById('generateForm');
 const result = document.getElementById('result');
 const insightContent = document.getElementById('insightContent');
 
-form.addEventListener('submit', async (e) => {
+form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     document.getElementById('loadingSpinner').style.display = 'flex';
 
@@ -19,6 +19,7 @@ form.addEventListener('submit', async (e) => {
             confirmButtonText: 'Login',
             cancelButtonText: 'Cancel',
             confirmButtonColor: '#2f27ce',
+            cancelButtonColor: '#dddcfe',
             showClass: {
                 popup: 'animate__animated animate__fadeInDown'
             },

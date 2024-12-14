@@ -16,21 +16,16 @@
         <!-- Modal Content -->
         <div class="relative min-h-screen flex items-center justify-center p-4">
             <div class="relative bg-white rounded-lg max-w-4xl w-full mx-auto shadow-lg">
-                <!-- Close Button -->
-                <button @click="open = false" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
-                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12" />
+                <button @click="open = false" class="z-30 absolute top-0 right-4 text-gray-500 hover:text-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" fill="#fff"
+                        viewBox="0 0 384 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                        <path
+                            d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
                     </svg>
                 </button>
 
                 <!-- Video Container -->
                 <div class="aspect-w-16 aspect-h-9">
-                    {{-- <iframe class="w-full h-full" src="https://www.youtube.com/embed/rPblj7ywfvg" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen>
-                    </iframe> --}}
-
                     <iframe width="560" height="315" src="https://www.youtube.com/embed/tuf8UPELcI4"
                         title="YouTube video player" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
